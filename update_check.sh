@@ -13,7 +13,7 @@ CURRENT="$(echo $RESULT | jq -r '.[0]')"
 echo "$CURRENT" > current_server_version.txt
 if [ "$OLD" == "$CURRENT" ]
   then
-    echo 'yes'
+    :
   else
-    echo 'no'
+	  python3 dockerfile_update.py $OLD $CURRENT
 fi
