@@ -15,5 +15,6 @@ if [ "$OLD" == "$CURRENT" ]
   then
     :
   else
-	  python3 dockerfile_update.py $OLD $CURRENT
+    rm ./Dockerfile
+    python3 dockerfile_update.py $CURRENT
 fi
