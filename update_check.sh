@@ -17,4 +17,8 @@ if [ "$OLD" == "$CURRENT" ]
   else
     rm ./Dockerfile
     python3 dockerfile_update.py $CURRENT
+    docker stop terraria
+    docker image rm terraria_local
+    docker build -t terraria_local .
+    docker run -d -it --rm -p 7777:7777 -v $HOME/terraria/world:/root/.local/share/Terraria/Worlds --name="terraria" -e WORLD_FILENAME=New_World.wld terraria_local
 fi
