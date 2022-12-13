@@ -16,7 +16,10 @@ if [ "$OLD" == "$CURRENT" ]
     :
   else
     rm ~/terraria_server_autoupdate/Dockerfile
-    python3 ~/terraria_server_autoupdate/dockerfile_update.py $CURRENT
+    sed -e "s/placeholder_1/$CURRENT/g" Dockerfile.template > Dockerfile
+    VERSION=${CURRENT##*-}
+    VERSION=${VERSION%%.zip}
+    sed -i "s/placeholder_2/$VERSION/g" Dockerfile
     docker stop terraria
     docker image rm terraria_local
     docker build -t terraria_local ~/terraria_server_autoupdate/.
